@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Weather extends React.Component {
+            state = {isHot:false}
+            render() {
+                const { isHot } = this.state;
+                return <h1 onClick={this.changeWeater}>今天天气很{isHot ? '很热' : '凉爽'}</h1>
+            }
+            changeWeater = () => {
+                const isHot = this.state.isHot;
+                this.setState({isHot:!isHot})
+            }
+        }
+        ReactDOM.render(<Weather />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./js/prop-types.js"></script>
+    <style>
+        .newsList {
+            width: 200px;
+            height: 150px;
+            background-color: pink;
+            overflow: auto;
+        }
+        .news {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Life extends React.Component {
+            constructor() {
+                console.log('life---constructor');
+                super();
+            }
+            state = { newsArr: [] }
+            death = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+            }
+            static getDerivedStateFromProps(props, state) {
+                console.log('getDerivedStateFromProps', props, state);
+                return null
+            }
+            componentDidMount() {
+                console.log('life---componentDidMount');
+                this.timer = setInterval(() => {
+                    let {newsArr} = this.state;
+                    let news = '新闻' + (newsArr.length+1);
+                    this.setState({newsArr:[news, ...newsArr]});
+                }, 1000)
+            }
+            componentWillUnmount() {
+                console.log('life---componentWillUnmount');
+                clearInterval(this.timer);
+            }
+            shouldComponentUpdate() {
+                console.log('life---shouldComponentUpdate');
+                return true;
+            }
+            getSnapshotBeforeUpdate(preProps, preState) {
+                console.log('getSnapshotBeforeUpdate', preProps, preState);
+                return this.list.scrollHeight;
+            }
+            componentDidUpdate(preProps, preState, height) {
+                console.log('life---componentDidUpdate', preProps, preState, height);
+                this.list.scrollTop += this.list.scrollHeight - height;
+            }
+            render() {
+                console.log('life---render');
+                return (
+                    <div>
+                         <div className='newsList' ref={c => this.list = c}>
+                            {
+                                this.state.newsArr.map((n, index) => {
+                                    return <div key={index} className='news'>{n}</div>
+                                })
+                            }
+                            </div>
+                        <button onClick={this.death}>卸载组件</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Life  count={122}/>, document.getElementById('root'))
+    </script>
+</body>
+
+</html>

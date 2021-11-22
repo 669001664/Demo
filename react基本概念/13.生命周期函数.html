@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./js/prop-types.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Life extends React.Component {
+            constructor() {
+                console.log('life---constructor');
+                super();
+            }
+            state = { count: 1 }
+            add = () => {
+                let { count } = this.state;
+                count += 1;
+                this.setState({ count });
+            }
+            death = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+            }
+            componentWillMount() {
+                console.log('life---componentWillMount');
+            }
+            componentDidMount() {
+                console.log('life---componentDidMount');
+            }
+            componentWillUnmount() {
+                console.log('life---componentWillUnmount');
+            }
+            shouldComponentUpdate() {
+                console.log('life---shouldComponentUpdate');
+                return true;
+            }
+            componentWillUpdate() {
+                console.log('life---componentWillUpdate');
+            }
+            componentDidUpdate() {
+                console.log('life---componentDidUpdate');
+            }
+            render() {
+                console.log('life---render');
+                return (
+                    <div>
+                        <h1>count:{this.state.count}</h1>
+                        <button onClick={this.add}>加1</button>
+                        <button onClick={this.death}>卸载组件</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Life />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>

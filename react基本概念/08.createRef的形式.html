@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./js/prop-types.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Demo extends React.Component {
+           // React.createRef调用后可以返回一个容器，该容器可以存储被ref所标识的节点,该容器是“专人专用”的
+            myRef = React.createRef();
+            showData = () => {
+                alert(this.myRef.current.value);
+            }
+            showData2 = (event) => {
+                alert(event.target.value);
+            }
+            render() {
+                return (
+                    <div>
+                        <input ref={this.myRef} type="text" placeholder='输入数据' />
+                        <button onClick={this.showData} style={{ margin: '0 10px' }}>点击弹出左侧值</button>
+                        <input onBlur={this.showData2} type="text" placeholder='输入数据' />
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Demo />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>

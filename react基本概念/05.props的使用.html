@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./js/prop-types.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Person extends React.Component {
+            //对props类型的限制
+            static propTypes = {
+                name: PropTypes.string.isRequired,
+                age: PropTypes.number,
+                sex: PropTypes.string,
+                speak: PropTypes.func
+            }
+            //props设置默认值
+            static defaultProps = {
+                name: 'dddd',
+                age: 23
+            }
+            render() {
+                const { name, age, sex, speak } = this.props;
+                //props是只读的
+				//this.props.name = 'jack' //此行代码会报错，因为props是只读的
+                return (
+                    <ul>
+                        <li>姓名{name}</li>
+                        <li>年龄{age}</li>
+                        <li onClick={speak}>性别{sex}</li>
+                    </ul>
+                )
+            }
+        }
+        function speak() {
+            console.log('ddd');
+        }
+        const p = {name:'lisi', age:23, sex:'男',speak:speak}
+        ReactDOM.render(<Person {...p} />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>
