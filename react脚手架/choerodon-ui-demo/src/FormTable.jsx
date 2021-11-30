@@ -1,5 +1,6 @@
 import React from 'react';
 import FormDS from './formDataSet';
+import './App.css'
 import {
   DataSet,
   Form,
@@ -13,7 +14,6 @@ import {
   SelectBox,
   Button,
 } from 'choerodon-ui/pro';
-import './App.css';
 
 class MyForm extends React.Component {
     constructor(props) {

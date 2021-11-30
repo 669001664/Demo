@@ -1,5 +1,3 @@
-// languageOptionDataSet.js
-// 与上面那个构造对象是同样的道理
 const languageOptionDataSet = {
     fields: [
         { name: 'text', type: 'string' },
